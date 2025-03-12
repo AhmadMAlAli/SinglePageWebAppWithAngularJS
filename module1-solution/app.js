@@ -14,7 +14,7 @@
         $scope.checkLunch = function(){
             if (!$scope.lunchMenu) 
             {
-                $scope.sayMessage = "Enter sometimes first!";
+                $scope.sayMessage = "Please enter data first";
                 return;
             }
 
