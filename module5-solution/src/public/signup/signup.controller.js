@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  angular.module('restaurant.public')
+  angular.module('public')
   .controller('SignUpController', SignUpController);
 
   SignUpController.$inject = ['MenuService', 'UserService'];
