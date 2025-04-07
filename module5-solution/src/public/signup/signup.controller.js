@@ -4,13 +4,15 @@
   angular.module('public')
   .controller('SignUpController', SignUpController);
 
-  SignUpController.$inject = ['MenuService', 'UserService'];
-  function SignUpController(MenuService, UserService) {
+  SignUpController.$inject = ['$scope', 'MenuService', 'UserService']; // Inject $scope
+  function SignUpController($scope, MenuService, UserService) { // Add $scope parameter
     var signUpCtrl = this;
     signUpCtrl.user = {};
     signUpCtrl.registrationComplete = false;
     signUpCtrl.favoriteItemError = "";
     signUpCtrl.favoriteItemValid = true;
+
+    console.log('$scope.signUpForm at controller load:', $scope.signUpForm); // Check at load
 
     signUpCtrl.validateFavorite = function () {
       var favorite = signUpCtrl.user.favorite;
@@ -18,35 +20,44 @@
         MenuService.getMenuItem(favorite)
           .then(function (response) {
             if (response) {
-              signUpCtrl.signUpForm.favorite.$setValidity('noSuchItem', true);
+              if ($scope.signUpForm && $scope.signUpForm.favorite) { // Check if $scope.signUpForm exists
+                $scope.signUpForm.favorite.$setValidity('noSuchItem', true);
+              }
               signUpCtrl.favoriteItemError = "";
               signUpCtrl.favoriteItemValid = true;
             } else {
-              signUpCtrl.signUpForm.favorite.$setValidity('noSuchItem', false);
+              if ($scope.signUpForm && $scope.signUpForm.favorite) { // Check if $scope.signUpForm exists
+                $scope.signUpForm.favorite.$setValidity('noSuchItem', false);
+              }
               signUpCtrl.favoriteItemError = "No such menu number exists.";
               signUpCtrl.favoriteItemValid = false;
             }
           })
           .catch(function (error) {
             console.error("Error checking menu item:", error);
-            signUpCtrl.signUpForm.favorite.$setValidity('noSuchItem', false);
+            if ($scope.signUpForm && $scope.signUpForm.favorite) { // Check if $scope.signUpForm exists
+              $scope.signUpForm.favorite.$setValidity('noSuchItem', false);
+            }
             signUpCtrl.favoriteItemError = "Error checking menu item.";
             signUpCtrl.favoriteItemValid = false;
           });
       } else {
-        signUpCtrl.signUpForm.favorite.$setValidity('noSuchItem', true); // Clear error if field is empty
+        if ($scope.signUpForm && $scope.signUpForm.favorite) { // Check if $scope.signUpForm exists
+          $scope.signUpForm.favorite.$setValidity('noSuchItem', true);
+        }
         signUpCtrl.favoriteItemError = "";
         signUpCtrl.favoriteItemValid = true;
       }
     };
 
     signUpCtrl.submitForm = function () {
-      signUpCtrl.validateFavorite(); // Ensure validation runs before submit
-      if (signUpCtrl.signUpForm.$valid && signUpCtrl.favoriteItemValid) {
+      console.log('$scope.signUpForm at submit:', $scope.signUpForm); // Check at submit
+      signUpCtrl.validateFavorite();
+      if ($scope.signUpForm && $scope.signUpForm.$valid && signUpCtrl.favoriteItemValid) { // Use $scope.signUpForm
         UserService.saveUserInfo(signUpCtrl.user);
         signUpCtrl.registrationComplete = true;
-        signUpCtrl.signUpForm.$setPristine();
-        signUpCtrl.signUpForm.$setUntouched();
+        $scope.signUpForm.$setPristine(); // Use $scope.signUpForm
+        $scope.signUpForm.$setUntouched(); // Use $scope.signUpForm
         signUpCtrl.user = {}; // Clear the form
       }
     };
