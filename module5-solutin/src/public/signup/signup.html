@@ -1,0 +1,54 @@
+<div class="container">
+    <h2>Sign Up for Our Newsletter</h2>
+  
+    <form name='signUpForm' novalidate ng-submit="signUpCtrl.submitForm()">
+      <div class="form-group">
+        <label for="firstName">First Name:</label>
+        <input type="text" class="form-control" id="firstName" name="firstName"
+               ng-model="signUpCtrl.user.firstName" required>
+        <span ng-show="signUpForm.firstName.$error.required && signUpForm.firstName.$touched"
+              class="error">First name is required.</span>
+      </div>
+  
+      <div class="form-group">
+        <label for="lastName">Last Name:</label>
+        <input type="text" class="form-control" id="lastName" name="lastName"
+               ng-model="signUpCtrl.user.lastName" required>
+        <span ng-show="signUpForm.lastName.$error.required && signUpForm.lastName.$touched"
+              class="error">Last name is required.</span>
+      </div>
+  
+      <div class="form-group">
+        <label for="email">Email Address:</label>
+        <input type="email" class="form-control" id="email" name="email"
+               ng-model="signUpCtrl.user.email" required>
+        <span ng-show="signUpForm.email.$error.required && signUpForm.email.$touched"
+              class="error">Valid email address is required.</span>
+        <span ng-show="signUpForm.email.$invalid && signUpForm.email.$touched && !signUpForm.email.$error.required"
+              class="error">Invalid email address.</span>
+      </div>
+  
+      <div class="form-group">
+        <label for="phone">Phone Number:</label>
+        <input type="text" class="form-control" id="phone" name="phone"
+               ng-model="signUpCtrl.user.phone"
+               pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+        <span ng-show="signUpForm.phone.$invalid && signUpForm.phone.$touched"
+              class="error">Phone number must be in the format XXX-XXX-XXXX.</span>
+      </div>
+  
+      <div class="form-group">
+        <label for="favorite">Favorite Menu Number:</label>
+        <input type="text" class="form-control" id="favorite" name="favorite"
+               ng-model="signUpCtrl.user.favorite" required>
+        <span ng-show="signUpForm.favorite.$error.required && signUpForm.favorite.$touched"
+              class="error">Favorite menu number is required.</span>
+        <span ng-if="signUpCtrl.favoriteItemError" class="error">{{ signUpCtrl.favoriteItemError }}</span>
+      </div>
+  
+      <button type="submit" class="btn btn-primary" ng-disabled="signUpForm.$invalid">Submit</button>
+      <div ng-if="signUpCtrl.registrationComplete" class="alert alert-success">
+        Your information has been saved.
+      </div>
+    </form>
+  </div>
