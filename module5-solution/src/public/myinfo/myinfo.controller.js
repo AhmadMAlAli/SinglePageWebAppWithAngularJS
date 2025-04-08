@@ -14,6 +14,7 @@
         MenuService.getMenuItem(myInfoCtrl.userInfo.favorite)
           .then(function (response) {
             myInfoCtrl.favoriteMenuItem = response;
+            console.log('myInfoCtrl.favoriteMenuItem:', myInfoCtrl.favoriteMenuItem);
           })
           .catch(function (error) {
             console.error("Error fetching favorite menu item:", error);
