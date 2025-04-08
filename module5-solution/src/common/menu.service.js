@@ -24,7 +24,7 @@ function MenuService($http, $q, ApiPath) {
 
   service.getMenuItem = function (shortName) {
     var deferred = $q.defer();
-    var categoryShortName = shortName.slice(0, 1).toLowerCase();
+    var categoryShortName = shortName.slice(0, 1);
     var menuItemNumber = shortName.slice(1);
     var url = ApiPath + '/menu_items/' + categoryShortName + '/menu_items/' + menuItemNumber + '.json';
 
