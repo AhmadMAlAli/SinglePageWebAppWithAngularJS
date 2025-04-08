@@ -11,7 +11,7 @@
       <div ng-if="myInfoCtrl.favoriteMenuItem">
         <h3>Your Favorite Menu Item:</h3>
         console.log('myInfoCtrl:', myInfoCtrl);
-        console.log('myInfoCtrl.favoriteMenuItem:', favoriteMenuItem);
+        console.log('myInfoCtrl.favoriteMenuItem:', myInfoCtrl.favoriteMenuItem);
         <img ng-if="myInfoCtrl.favoriteMenuItem.image_present" ng-src="images/menu/{{myInfoCtrl.favoriteMenuItem.category_short_name}}/{{myInfoCtrl.favoriteMenuItem.short_name}}.jpg" alt="{{ myInfoCtrl.favoriteMenuItem.name }}" width="150">
         <img ng-if="!myInfoCtrl.favoriteMenuItem.image_present" src="images/noimage.png" alt="No Image Available" width="150">
         <h4>{{ myInfoCtrl.favoriteMenuItem.name }}</h4>
