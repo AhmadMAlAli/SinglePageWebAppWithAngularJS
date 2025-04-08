@@ -10,7 +10,7 @@
   
       <div ng-if="myInfoCtrl.favoriteMenuItem">
         <h3>Your Favorite Menu Item:</h3>
-        <img ng-src="images/menu/{{myInfoCtrl.favoriteMenuItem.category_short_name}}/{{myInfoCtrl.favoriteMenuItem.short_name}}.jpg" alt="{{ myInfoCtrl.favoriteMenuItem.name }}" width="150">
+        <img ng-src="images/menu/{{myInfoCtrl.favoriteMenuItem.short_name.slice(0, 1)}}/{{myInfoCtrl.favoriteMenuItem.short_name}}.jpg" alt="{{ myInfoCtrl.favoriteMenuItem.name }}" width="150">
         <h4>{{ myInfoCtrl.favoriteMenuItem.name }}</h4>
         <p>{{ myInfoCtrl.favoriteMenuItem.description }}</p>
       </div>
